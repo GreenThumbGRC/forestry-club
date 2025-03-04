@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
+
 
 import PropTypes from 'prop-types';
 
-function AdminRejectModal(onReject) {
+function AdminRejectModal(onReject, name) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -11,15 +12,17 @@ function AdminRejectModal(onReject) {
 
     const handleSubmit = (e) => {
         console.log(e.target)
-        // grab data from message box
+        // grab data from message box 'target.value'
         // send rejection message
         onReject(true)
         handleClose();
     }
 
+    const handleTest = (e) => {
+        console.log(e.target)
+    }
 
     return (
-
         <>
             <Modal
                 show={show}
@@ -28,13 +31,21 @@ function AdminRejectModal(onReject) {
                 keyboard={false}
                 backdrop='static'
             >
-                <Modal.Header closeButton></Modal.Header>
+                <Modal.Header closeButton>
+                    <div>Rejecting {name}.</div>
+                </Modal.Header>
                 <Modal.Body>
-                    <p>Todo: add text box here</p>
+                    <Form>
+                        <Form.Group>
+                            <Form.Label>Rejection Reason</Form.Label>
+                            <Form.Control as="textarea" rows={4} />
+                        </Form.Group>
+                    </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={handleClose} variant="secondary">Cancel</Button>
                     <Button onClick={handleSubmit} variant="danger">Reject Submission</Button>
+                    <Button onClick={handleTest} variant="danger">test</Button>
                 </Modal.Footer>
             </Modal>
         </>
@@ -42,7 +53,8 @@ function AdminRejectModal(onReject) {
 }
 
 AdminRejectModal.propTypes = {
-    onReject: PropTypes.func
+    onReject: PropTypes.func,
+    name: PropTypes.string
 }
 
 export default AdminRejectModal;
