@@ -1,47 +1,39 @@
-import { useState } from 'react'
-import './App.css'
-import Stub from './components/Stub'
+import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router';
-import ReactDOM from 'react-dom/client';
-import AdminReview from './AdminReview';
-import AdminMemberView from './AdminMemberView';
+import AdminReview from './pages/AdminReview';
+import AdminMemberView from './pages/AdminMemberView';
+import AdminClubView from './pages/AdminClubView';
 import Navigation from './Navigation';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import MemberView from './pages/MemberView';
 
 function App() {
-
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Navigation />}>
-            <Route index element={<p>Home</p>} />
-            <Route path='/adminReview' element={<AdminReview />} />
-            <Route path='/adminReview/:member' element={<AdminMemberView />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-
-      <p>Success</p>
       <Container>
         <Row>
           <Col>
             <BrowserRouter>
               <Routes>
                 <Route path='/' element={<Navigation />}>
-                  <Route index element={<App />} />
-                  <Route path='/AdminReview' element={<AdminReview />} />
+                  <Route index element={
+                    <>
+                      <p>Home</p>
+                      <div><a href='/adminReview'>Admin View</a></div>
+                      <div><a href='/member'>Member View</a></div>
+                      <div><a href='/adminClub'>Admin Club View</a></div>
+                    </>
+                    } />
+                  <Route path='/adminReview' element={<AdminReview />} />
+                  <Route path='/adminClub/:member' element={<AdminMemberView />} />
+                  <Route path='/adminClub' element={<AdminClubView />} />
+                  <Route path='/member' element={<MemberView />} />
                 </Route>
               </Routes>
             </BrowserRouter>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <AdminReview />
           </Col>
         </Row>
       </Container>

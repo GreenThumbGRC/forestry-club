@@ -1,4 +1,4 @@
-import AdminNotify from "./components/AdminNotify";
+import AdminNotify from "../components/AdminNotify";
 
 import ToastContainer from 'react-bootstrap/ToastContainer';
 

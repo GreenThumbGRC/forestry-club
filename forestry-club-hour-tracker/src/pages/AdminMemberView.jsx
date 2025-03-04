@@ -1,8 +1,7 @@
-import AdminNav from "./AdminNav";
+import AdminNav from "../components/AdminNav";
 import { useParams } from "react-router";
-import MemberTimesTable from "./components/Table";
+import MemberTimesTable from "../components/Table";
 import { Button } from '@mui/material';
-import { alignProperty } from "@mui/material/styles/cssUtils";
 
 
 function AdminMemberView() { 
@@ -21,7 +20,7 @@ function AdminMemberView() {
         { field: 'date', headerName: 'Date', width: 500 },
         { field: 'hours', headerName: 'Hours', width: 200 },
         { field: 'status', headerName: 'Status', width: 200 },
-        { field: 'edit', headerName: '', width: 500, renderCell: EditButton,
+        { field: 'edit', headerName: '', renderCell: EditButton,
             width: 150,  sortable: false, filterable: false, resizable: false,
             hideable: false, disableExport: true, disableColumnMenu: true }
     ];
@@ -31,13 +30,13 @@ function AdminMemberView() {
         variant="contained"
         size="small"
         style={{ marginLeft: 16 }}
-    >
-        review
-    </Button></a>)
+        >
+            review
+        </Button></a>)
     }
     return (
         <>
-            <a href="/adminReview"><button>Back</button></a>
+            <a href="/adminClub"><button>Back</button></a>
             <AdminNav />
             <p style={{textAlign: "left"}}>{params.member}</p>
             <MemberTimesTable rows={rowData} columns={columns}/>
