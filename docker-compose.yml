@@ -1,0 +1,24 @@
+services:
+  db:
+    image: mysql:8.4.3
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ARm0yB4Lq2RNeAG
+      MYSQL_DATABASE: forestry_db
+      MYSQL_USER: forestry_user
+      MYSQL_PASSWORD: F6CraKpFjfbIo1
+    volumes:
+      - ./scripts/mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.2.1
+    restart: always
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ARm0yB4Lq2RNeAG
+    ports:
+      - "8080:80"
