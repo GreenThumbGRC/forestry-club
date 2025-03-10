@@ -1,20 +1,20 @@
 CREATE TABLE `users` (
-    `user_id` integer PRIMARY KEY,
-    `username` integer UNIQUE,
-    `user_flags` integer,
-    `fname` varchar(255),
-    `lname` varchar(255),
-    `create_date` timestamp,
-    `password` hash
+    `user_id` INTEGER NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(255) UNIQUE,
+    `user_flags` INTEGER,
+    `fname` VARCHAR(255),
+    `lname` VARCHAR(255),
+    `create_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`user_id`)
 );
 CREATE TABLE `workhours` (
-    `submission_id` integer PRIMARY KEY,
-    `time_in` datetime,
-    `time_out` datetime,
-    `user_id` integer,
-    `create_date` timestamp,
-    `under_review` boolean,
-    `accepted` boolean
+    `submission_id` INTEGER AUTO_INCREMENT,
+    `time_in` DATETIME,
+    `time_out` DATETIME,
+    `user_id` INTEGER,
+    `create_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `under_review` BOOLEAN,
+    `accepted` BOOLEAN,
+    PRIMARY KEY (`submission_id`)
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 );
-ALTER TABLE `workhours`
-ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
