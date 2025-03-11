@@ -1,9 +1,37 @@
+import {useState, useEffect } from "react"; 
 import AdminNav from "../components/AdminNav";
 import AdminTable from "../components/Table";
 import { Button } from '@mui/material';
 
+function translateData(data) {
+    if(data){
+        return data.map(element => ({
+            "id": element.user_id,
+            "name": element.fname + " " + element.lname,
+            "ytd": 0,
+            "qtd": 0,
+            "points": 0
+        }));
+    }
+    else {
+        return []
+    }
+}
 
-function AdminClubView() { 
+const AdminClubView = () => {
+    const [memberData, setMemberData] = useState(null);
+
+    useEffect(() => {fetch("http://localhost:3002/api/users", {
+        method: "get",
+        mode: "cors",
+        headers: {
+            "content-type": "application/json"
+        }
+    })
+    .then( response => response.json())
+    .then( content => content.data)
+    .then( result => setMemberData(result))}, []);
+
     const exampleData = [
         { "id": 0, "name": "Alice Johnson", "ytd": 120, "qtd": 30, "points": 1200 },
         { "id": 1, "name": "Michael Smith", "ytd": 95, "qtd": 25, "points": 950 },
@@ -11,8 +39,7 @@ function AdminClubView() {
         { "id": 3, "name": "James Brown", "ytd": 80, "qtd": 20, "points": 800 },
         { "id": 4, "name": "Emily Davis", "ytd": 110, "qtd": 35, "points": 1100 }
     ];
-
-    const rowData = exampleData;
+    const rowData = memberData;
 
     const columns= [
         {field: 'name', headerName: 'Name', width: 500},
@@ -25,7 +52,7 @@ function AdminClubView() {
     ];
 
     function ViewButton(props) {
-        return (<a href={"/adminClub/"+rowData[props.id].name}><Button
+        return (<a href={"/adminClub/"+props.row.name}><Button
         variant="contained"
         size="small"
         style={{ marginLeft: 16 }}
@@ -38,7 +65,7 @@ function AdminClubView() {
         <>
             <p>AdminReview Success</p>
             <AdminNav />
-            <AdminTable rows={rowData} columns={columns}/>
+            <AdminTable rows={translateData(rowData)} columns={columns}/>
         </>
     );
 }

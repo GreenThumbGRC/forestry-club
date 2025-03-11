@@ -4,6 +4,8 @@ import AdminReview from './pages/AdminReview';
 import AdminMemberView from './pages/AdminMemberView';
 import AdminClubView from './pages/AdminClubView';
 import Navigation from './Navigation';
+import Home from './pages/Home';
+import AddMember from './components/AddMember';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -19,18 +21,12 @@ function App() {
             <BrowserRouter>
               <Routes>
                 <Route path='/' element={<Navigation />}>
-                  <Route index element={
-                    <>
-                      <p>Home</p>
-                      <div><a href='/adminReview'>Admin View</a></div>
-                      <div><a href='/member'>Member View</a></div>
-                      <div><a href='/adminClub'>Admin Club View</a></div>
-                    </>
-                    } />
+                  <Route index element={<Home />} />
                   <Route path='/adminReview' element={<AdminReview />} />
                   <Route path='/adminClub/:member' element={<AdminMemberView />} />
                   <Route path='/adminClub' element={<AdminClubView />} />
                   <Route path='/member' element={<MemberView />} />
+                  <Route path='/addMember' element={<AddMember />} />
                 </Route>
               </Routes>
             </BrowserRouter>
