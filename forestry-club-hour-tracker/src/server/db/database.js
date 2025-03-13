@@ -12,7 +12,9 @@ const connectDb = async () => {
 
     if (!connection) {
         console.error('Failed to make a connection.')
-    } else {console.log('server connection')}
+    } else {
+        console.log('server connection')
+    }
 
     return connection;
 }

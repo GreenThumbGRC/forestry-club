@@ -54,3 +54,27 @@ export const deleteWorkhourRecord = async (id) => {
     db.end()
     return results
 }
+
+export const updateUserRecord = async (record) => {
+    if (!record) {
+        console.err("Error: no record")
+        return false;
+    }
+    const db = await connection()
+    const id = Number.parseInt(record.submission_id)
+
+    console.log(`update request for record: ${record.submission_id} to value: ${record.accepted}`);
+
+    const [results] = await db.query(
+        `
+        UPDATE workhours
+        SET under_review = 0, accepted = ?
+        WHERE submission_id = ?
+        `,
+        [record.accepted, id]
+    );
+
+    db.end();
+
+    return results;
+}

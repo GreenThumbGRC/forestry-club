@@ -4,7 +4,8 @@ import {
     deleteWorkhourRecord,
     getAllWorkhourRecords,
     getWorkhoursByUsername,
-    getWorkhoursById
+    getWorkhoursById,
+    putWorkhourRecord
 } from "../controller/workhoursController.js";
 
 const workhoursRouter = express.Router()
@@ -12,6 +13,7 @@ const workhoursRouter = express.Router()
 workhoursRouter.get('/', getAllWorkhourRecords)
 workhoursRouter.get('/:id', getWorkhoursById)
 workhoursRouter.get('/username/:username', getWorkhoursByUsername)
+workhoursRouter.put('/', putWorkhourRecord)
 workhoursRouter.post('/', createWorkhourRecord)
 workhoursRouter.delete('/:id', deleteWorkhourRecord)
 
