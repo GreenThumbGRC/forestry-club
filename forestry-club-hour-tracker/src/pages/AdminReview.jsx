@@ -3,6 +3,10 @@ import { userToFirstLast } from "../helpers/api_helper";
 import AdminNotify from "../components/AdminNotify";
 import { NavLink } from "react-router-dom";
 import { BASE_URL } from "../projectVariables.js";
+import FlatSolidButton from './../components/FlatSolidButton'
+import { Typography } from "@mui/material";
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid';
 
 function AdminReview() {
 
@@ -64,30 +68,28 @@ function AdminReview() {
     if(users && reviewData.length > 0){
         return (
             <>
-                <section style={{
-                    display: 'grid',
-                    gridAutoFlow: 'row',
-                    gridTemplateColumns: '1fr 1fr',
-                }}>
-                {
-                    // on first pass, show all under_review.
-                    reviewData.map( entry => (
-                        <AdminNotify
-                            key={entry.submission_id}
-                            id={entry.submission_id}
-                            name={userToFirstLast(users.filter(user => user.user_id === entry.user_id)[0])}
-                            time_in={entry.time_in}
-                            time_out={entry.time_out}
-                            date_submitted={entry.create_date}
-                            date_volunteered={entry.date}
-                            onAccept={doAccept}
-                            onDeny={doDeny}
-                            setReviewData={setReviewData}
-                            reviewData = {reviewData}
-                        />
-                    ))
-                }
-                </section>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                    <Typography variant="h4" component="h1">Pending Hours</Typography>
+                    <FlatSolidButton to='/adminClub' component={NavLink}>Back</FlatSolidButton>
+                </Box>
+                <Grid container spacing={2}>
+                    {reviewData.map(entry => (
+                        <Grid item xs={12} md={6} lg={4} key={entry.submission_id}>
+                            <AdminNotify
+                                id={entry.submission_id}
+                                name={userToFirstLast(users.find(user => user.user_id === entry.user_id))}
+                                time_in={entry.time_in}
+                                time_out={entry.time_out}
+                                date_submitted={entry.create_date}
+                                date_volunteered={entry.date}
+                                onAccept={doAccept}
+                                onDeny={doDeny}
+                                setReviewData={setReviewData}
+                                reviewData={reviewData}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
             </>
         )
     }
