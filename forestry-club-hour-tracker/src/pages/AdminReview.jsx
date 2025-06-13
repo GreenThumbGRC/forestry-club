@@ -45,7 +45,7 @@ function AdminReview() {
         fetch(`${BASE_URL}/api/hours.php?accepted=true&id=${record.submission_id}`, {
             mode: "cors",
             method: 'PUT',
-            headers: header
+            headers: header,
         })
     }
 

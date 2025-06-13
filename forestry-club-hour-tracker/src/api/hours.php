@@ -93,15 +93,15 @@ switch ($method) {
         break;
 
     case 'PUT':
-        if($_GET['accept'] AND $_GET['accept'] == true){
+        if($_GET['accepted'] AND $_GET['accepted'] == true){
             $id = $_GET['id'];
-            $under_review = intval($input['under_review']);
-            $accepted = intval($input['accepted']);
+            // $under_review = intval($input['under_review']);
+            // $accepted = intval($input['accepted']);
 
             $stmt = $conn->prepare("UPDATE workhours
                 SET under_review = 0, accepted = 1
                 WHERE submission_id = ?");
-            $stmt->bind_param("i",$id);
+            $stmt->bind_param("i", $id);
             $message = "$id";
             if (!$stmt->execute()) {
                 $message = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
@@ -110,15 +110,15 @@ switch ($method) {
             }
             echo json_encode(["message" => $message]);
         }
-        else if($_GET['accept'] AND $_GET['accept'] == false){
+        else if($_GET['accepted'] AND $_GET['accepted'] == false){
             $id = $_GET['id'];
-            $under_review = intval($input['under_review']);
-            $accepted = intval($input['accepted']);
+            // $under_review = intval($input['under_review']);
+            // $accepted = intval($input['accepted']);
 
             $stmt = $conn->prepare("UPDATE workhours
                 SET under_review = 0, accepted = 0
                 WHERE submission_id = ?");
-            $stmt->bind_param("i",$id);
+            $stmt->bind_param("i", $id);
             $message = "$id";
             if (!$stmt->execute()) {
                 $message = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
