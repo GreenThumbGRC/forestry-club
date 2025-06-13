@@ -97,7 +97,19 @@ function AdminReview() {
         // if no records are found, show a link to admin member view
         return (
             <>
-                <p>You&apos;re all done! <NavLink to="./../adminClub">Go to Admin Member view.</NavLink></p>
+                <Box id='success-header'>
+                    <Typography variant='h3' component='h2'>You&apos;re all done!</Typography>
+                    <NavLink to="/adminClub">Go back</NavLink>
+                </Box>
+                <Box 
+                    sx={{ 
+                        display: 'flex', 
+                        justifyContent: 'center',
+                        marginTop: '7rem' 
+                    }}
+                >
+                    <img className="success-img" src='/tree-success-image.svg' />
+                </Box>
             </>
         );
            
