@@ -45,6 +45,25 @@ switch ($method) {
                 }
                 echo json_encode($data);
             } 
+        } else if (isset($_GET['user_id'])) {
+            $user_id = $_GET['user_id'];
+            $stmt = $conn->prepare("SELECT accepted, submission_id,
+                DATE(workhours.date) AS date_worked,
+                TIMESTAMPDIFF(MINUTE, time_in, time_out) / 60 AS hours
+                FROM workhours
+                WHERE user_id=?");
+            $stmt->bind_param("i", $user_id);
+            $data = [];
+            if (!$stmt->execute()) {
+                $message = "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+                echo json_encode(["message" => $message]);
+            } else {
+                $result = $stmt->get_result();
+                while ($row = $result->fetch_assoc()) {
+                    $data[] = $row;
+                }
+                echo json_encode($data);
+            } 
         } else {
             $result = $conn->query("SELECT * FROM workhours");
             $users = [];

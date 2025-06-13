@@ -9,7 +9,7 @@ function useMemberHours(user) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${BASE_URL}/api/hours.php?id=${user.id}`, {
+                const response = await fetch(`${BASE_URL}/api/hours.php?user_id=${user.user_id}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json"
@@ -26,7 +26,7 @@ function useMemberHours(user) {
         };
 
         fetchData();
-    }, [user.id]);
+    }, [user]);
 
     return { memberHours, loading, error };
 }
